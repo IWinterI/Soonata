@@ -8,6 +8,10 @@ class PFavoritos
         PFavoritos();
         virtual ~PFavoritos();
 
+        void cargarF();
+        void guardarF();
+
+
     protected:
 
     private:
