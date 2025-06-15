@@ -1,0 +1,60 @@
+# depslib dependency file v1.0
+1749603355 source:c:\users\usuario\documents\soonata\src\carpeta.cpp
+	"Carpeta.h"
+
+1749603355 c:\users\usuario\documents\soonata\include\carpeta.h
+
+1749603317 source:c:\users\usuario\documents\soonata\src\exphtml.cpp
+	"ExpHTML.h"
+
+1749603317 c:\users\usuario\documents\soonata\include\exphtml.h
+
+1749931653 source:c:\users\usuario\documents\soonata\src\favoritos.cpp
+	"Favoritos.h"
+
+1749934230 c:\users\usuario\documents\soonata\include\favoritos.h
+	<string>
+
+1749603102 source:c:\users\usuario\documents\soonata\src\historial.cpp
+	"Historial.h"
+
+1749603102 c:\users\usuario\documents\soonata\include\historial.h
+
+1749603054 source:c:\users\usuario\documents\soonata\src\interfazconsola.cpp
+	"InterfazConsola.h"
+
+1749603054 c:\users\usuario\documents\soonata\include\interfazconsola.h
+
+1749603238 source:c:\users\usuario\documents\soonata\src\organizadorc.cpp
+	"OrganizadorC.h"
+
+1749603238 c:\users\usuario\documents\soonata\include\organizadorc.h
+
+1749603211 source:c:\users\usuario\documents\soonata\src\pfavoritos.cpp
+	"PFavoritos.h"
+
+1749672880 c:\users\usuario\documents\soonata\include\pfavoritos.h
+
+1749603265 source:c:\users\usuario\documents\soonata\src\paginaw.cpp
+	"PaginaW.h"
+
+1749932799 c:\users\usuario\documents\soonata\include\paginaw.h
+
+1749933151 source:c:\users\usuario\documents\soonata\main.cpp
+	<iostream>
+	"Favoritos.h"
+	"GestionF.h"
+
+1749933198 c:\users\usuario\documents\soonata\include\gestionf.h
+	"Favoritos.h"
+	<vector>
+	<deque>
+	<string>
+
+1749933309 source:c:\users\usuario\documents\soonata\src\gestionf.cpp
+	"GestionF.h"
+	<fstream>
+	<sstream>
+	<algorithm>
+	<iostream>
+

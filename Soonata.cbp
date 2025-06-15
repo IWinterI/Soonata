@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,7 +34,25 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/Carpeta.h" />
+		<Unit filename="include/ExpHTML.h" />
+		<Unit filename="include/Favoritos.h" />
+		<Unit filename="include/GestionF.h" />
+		<Unit filename="include/Historial.h" />
+		<Unit filename="include/InterfazConsola.h" />
+		<Unit filename="include/OrganizadorC.h" />
+		<Unit filename="include/PFavoritos.h" />
+		<Unit filename="include/PaginaW.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Carpeta.cpp" />
+		<Unit filename="src/ExpHTML.cpp" />
+		<Unit filename="src/Favoritos.cpp" />
+		<Unit filename="src/GestionF.cpp" />
+		<Unit filename="src/Historial.cpp" />
+		<Unit filename="src/InterfazConsola.cpp" />
+		<Unit filename="src/OrganizadorC.cpp" />
+		<Unit filename="src/PFavoritos.cpp" />
+		<Unit filename="src/PaginaW.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

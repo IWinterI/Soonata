@@ -6,9 +6,13 @@ class PaginaW
 {
     public:
         PaginaW();
+
+
         virtual ~PaginaW();
 
     protected:
+
+
 
     private:
 };
