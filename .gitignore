@@ -1,1 +1,14 @@
+# Archivos objeto y ejecutables
+**/*.o
+**/*.obj
+**/*.exe
+**/*.out
+**/*.a
+**/*.so
+**/*.dll
 **/.vscode
+
+# Directorios de construcción
+obj/
+bin/
+build/

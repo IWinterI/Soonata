@@ -1,4 +1,4 @@
-#include "InterfazConsola.h"
+#include "../include/InterfazConsola.h"
 
 InterfazConsola::InterfazConsola()
 {
@@ -44,61 +44,6 @@ void InterfazConsola::MostrarEncabezado()
     std::cout << std::string(50, '=') << std::endl;
 }
 
-bool InterfazConsola::ProcesarOpcion(int opcion)
-{
-    switch (opcion)
-    {
-    case 0:
-        std::cout << std::string(50, '=') << std::endl;
-        printCentered("Gracias por visitarnos.");
-        printCentered("Vuelva pronto.");
-        std::cout << std::string(50, '=') << std::endl;
-        return false;
-        break;
-    case 1:
-        workinprogrece(opcion);
-        return true;
-        break;
-    case 2:
-        workinprogrece(opcion);
-        return true;
-        break;
-    case 3:
-        workinprogrece(opcion);
-        return true;
-        break;
-    case 4:
-        workinprogrece(opcion);
-        return true;
-        break;
-    case 5:
-        workinprogrece(opcion);
-        return true;
-        break;
-    case 6:
-        workinprogrece(opcion);
-        return true;
-        break;
-    case 7:
-        workinprogrece(opcion);
-        return true;
-        break;
-    case 8:
-        workinprogrece(opcion);
-        return true;
-        break;
-    case 9:
-        workinprogrece(opcion);
-        return true;
-        break;
-    default:
-        std::cout << std::string(50, '=') << std::endl;
-        std::cout << "Error: opcion invalida" << std::endl;
-        std::cout << std::string(50, '=') << std::endl;
-        break;
-    }
-}
-
 void InterfazConsola::MostrarMenu()
 {
     std::cout << "===Menu Principal===" << std::endl;
@@ -115,4 +60,35 @@ void InterfazConsola::MostrarMenu()
     std::cout << "" << std::endl;
     std::cout << std::string(50, '=') << std::endl;
     std::cout << "Seleccione una accion: ";
+}
+
+void InterfazConsola::registrarComando(int opcion, std::unique_ptr<ICommand> comando)
+{
+    comandos_[opcion] = std::move(comando);
+}
+
+void InterfazConsola::ejecutar()
+{
+    int opcion;
+    do
+    {
+        clearScreen();
+        MostrarEncabezado();
+        MostrarMenu();
+
+        std::cin >> opcion;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        if (opcion == 0)
+            break;
+
+        if (comandos_.count(opcion))
+        {
+            comandos_[opcion]->ejecutar();
+        }
+        else
+        {
+            std::cout << "Opción inválida\n";
+        }
+    } while (true);
 }
