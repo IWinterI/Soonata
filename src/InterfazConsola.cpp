@@ -10,6 +10,14 @@ InterfazConsola::~InterfazConsola()
     // dtor
 }
 
+void InterfazConsola::pausarConsola()
+{
+    std::cout << std::string(50, '-') << std::endl;
+    std::cout << "\nPresione Enter para continuar...";
+    std::cout << std::string(50, '-') << std::endl;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.get(); // Espera a que se presione Enter
+}
 void InterfazConsola::clearScreen()
 {
 #ifdef _WIN32
@@ -46,18 +54,12 @@ void InterfazConsola::MostrarEncabezado()
 
 void InterfazConsola::MostrarMenu()
 {
-    std::cout << "===Menu Principal===" << std::endl;
-    std::cout << "1.-Navegar a una pagina web." << std::endl;
-    std::cout << "2.-Navegar a una pagina web de favoritos." << std::endl;
-    std::cout << "3.-Navegar hacia adelante." << std::endl;
-    std::cout << "4.-Navegar hacia atras." << std::endl;
-    std::cout << "5.-Guardar en favoritos." << std::endl;
-    std::cout << "6.-Elimar favorito." << std::endl;
-    std::cout << "7.-Resturar favoritos." << std::endl;
-    std::cout << "8.-Organizar favoritos." << std::endl;
-    std::cout << "9.-Exportar a HTML." << std::endl;
-    std::cout << "0.-Salir." << std::endl;
-    std::cout << "" << std::endl;
+    printCentered("================= Menu principal =================");
+    for (const auto &par : comandos_)
+    {
+        std::cout << par.first << ".-" << par.second->nombre() << std::endl;
+    }
+    std::cout << "0.-Salir del navegador." << std::endl;
     std::cout << std::string(50, '=') << std::endl;
     std::cout << "Seleccione una accion: ";
 }
@@ -78,9 +80,16 @@ void InterfazConsola::ejecutar()
 
         std::cin >> opcion;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << std::string(50, '=') << std::endl;
 
         if (opcion == 0)
+        {
+            std::cout << std::string(50, '=') << std::endl;
+            printCentered("Saliendo del navegador.");
+            printCentered("Vuelva pronto");
+            std::cout << std::string(50, '=') << std::endl;
             break;
+        }
 
         if (comandos_.count(opcion))
         {
@@ -88,7 +97,10 @@ void InterfazConsola::ejecutar()
         }
         else
         {
-            std::cout << "Opción inválida\n";
+            std::cout << std::string(50, '-') << std::endl;
+            std::cout << "Opción inválida" << std::endl;
+            std::cout << std::string(50, '-') << std::endl;
+            pausarConsola();
         }
     } while (true);
 }

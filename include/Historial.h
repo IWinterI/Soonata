@@ -18,7 +18,7 @@ public:
     bool anterior();
 
     std::string get_actual() const;
-    std::vector<std::string> get_historial() const;
+    void imprimir_historial();
     void borrar_historial();
     bool puede_avanzar() const;
     bool puede_retroceder() const;

@@ -24,9 +24,13 @@ public:
 
 protected:
 private:
+    // Atributos
     std::map<int, std::unique_ptr<ICommand>> comandos_;
+
+    // Metodos
     void clearScreen();
     void printCentered(const std::string &text, int width = 50);
+    void pausarConsola();
 };
 
 #endif // INTERFAZCONSOLA_H

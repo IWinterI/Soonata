@@ -6,6 +6,9 @@
 
 // Comandos
 #include "include/commands/ComandoNavegar.h"
+#include "include/commands/ComandoImpHist.h"
+#include "include/commands/ComandoAntHist.h"
+#include "include/commands/ComandoSigHist.h"
 
 int main()
 {
@@ -17,6 +20,9 @@ int main()
 
     // Registrar comandos con sus dependencias
     interfaz.registrarComando(1, std::make_unique<ComandoNavegar>(historial));
+    interfaz.registrarComando(2, std::make_unique<ComandoImpHist>(historial));
+    interfaz.registrarComando(3, std::make_unique<ComandoAntHist>(historial));
+    interfaz.registrarComando(4, std::make_unique<ComandoSigHist>(historial));
 
     // Ejecutar
     interfaz.ejecutar();

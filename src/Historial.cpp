@@ -69,14 +69,40 @@ bool Historial::anterior()
 
 std::string Historial::get_actual() const
 {
-    if (actual == historial.end())
-        throw std::runtime_error("No hay páginas en el historial");
-    return *actual;
+    return (actual != historial.end()) ? *actual : "(ninguna)";
 }
 
-std::vector<std::string> Historial::get_historial() const
+void Historial::imprimir_historial()
 {
-    return std::vector<std::string>(historial.begin(), historial.end());
+    if (!historial.empty())
+    {
+        // Imprimir todas las url
+        for (const auto &url : historial)
+        {
+            std::cout << "- " << url;
+
+            // Marcar la URL actual
+            if (actual != historial.end() && url == *actual)
+            {
+                std::cout << " <-- Actual";
+            }
+            std::cout << std::endl;
+        }
+
+        // Imprimir el url actual
+        if (actual != historial.end())
+        {
+            std::cout << "\nURL actual: " << *actual << std::endl;
+        }
+        else
+        {
+            std::cout << "\nURL actual: Ninguna (iterador al final)" << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "Historial vacio." << std::endl;
+    }
 }
 
 bool Historial::puede_retroceder() const

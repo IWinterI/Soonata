@@ -2,12 +2,12 @@
 #include "ICommand.h"
 #include "../Historial.h"
 
-class ComandoNavegar : public ICommand
+class ComandoImpHist : public ICommand
 {
     Historial &servicio;
 
 public:
-    explicit ComandoNavegar(Historial &srv);
+    explicit ComandoImpHist(Historial &srv);
 
     void ejecutar() override;
     std::string nombre() const override;
