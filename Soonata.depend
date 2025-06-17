@@ -4,10 +4,14 @@
 
 1749603355 c:\users\usuario\documents\soonata\include\carpeta.h
 
-1749603317 source:c:\users\usuario\documents\soonata\src\exphtml.cpp
+1750175605 source:c:\users\usuario\documents\soonata\src\exphtml.cpp
 	"ExpHTML.h"
+	<fstream>
+	<algorithm>
 
-1749603317 c:\users\usuario\documents\soonata\include\exphtml.h
+1750175605 c:\users\usuario\documents\soonata\include\exphtml.h
+	<string>
+	<vector>
 
 1749931653 source:c:\users\usuario\documents\soonata\src\favoritos.cpp
 	"Favoritos.h"
@@ -15,15 +19,24 @@
 1749934230 c:\users\usuario\documents\soonata\include\favoritos.h
 	<string>
 
-1749603102 source:c:\users\usuario\documents\soonata\src\historial.cpp
-	"Historial.h"
+1750166817 source:c:\users\usuario\documents\soonata\src\historial.cpp
+	"../include/Historial.h"
 
-1749603102 c:\users\usuario\documents\soonata\include\historial.h
+1750166816 c:\users\usuario\documents\soonata\include\historial.h
+	<list>
+	<vector>
+	<iostream>
+	<string>
+	<regex>
 
-1749603054 source:c:\users\usuario\documents\soonata\src\interfazconsola.cpp
-	"InterfazConsola.h"
+1750166817 source:c:\users\usuario\documents\soonata\src\interfazconsola.cpp
+	"../include/InterfazConsola.h"
 
-1749603054 c:\users\usuario\documents\soonata\include\interfazconsola.h
+1750166816 c:\users\usuario\documents\soonata\include\interfazconsola.h
+	<iostream>
+	<map>
+	<memory>
+	"../include/commands/ICommand.h"
 
 1749603238 source:c:\users\usuario\documents\soonata\src\organizadorc.cpp
 	"OrganizadorC.h"
@@ -40,10 +53,14 @@
 
 1749932799 c:\users\usuario\documents\soonata\include\paginaw.h
 
-1749933151 source:c:\users\usuario\documents\soonata\main.cpp
-	<iostream>
-	"Favoritos.h"
-	"GestionF.h"
+1750175711 source:c:\users\usuario\documents\soonata\main.cpp
+	"include/InterfazConsola.h"
+	"include/Historial.h"
+	"include/commands/ComandoNavegar.h"
+	"include/commands/ComandoImpHist.h"
+	"include/commands/ComandoAntHist.h"
+	"include/commands/ComandoSigHist.h"
+	"ExpHTML.h"
 
 1749933198 c:\users\usuario\documents\soonata\include\gestionf.h
 	"Favoritos.h"
@@ -57,4 +74,38 @@
 	<sstream>
 	<algorithm>
 	<iostream>
+
+1750166817 c:\users\usuario\documents\soonata\include\commands\icommand.h
+	<memory>
+	<limits>
+	<iostream>
+	<string>
+
+1750166816 c:\users\usuario\documents\soonata\include\commands\comandonavegar.h
+	"ICommand.h"
+	"../Historial.h"
+
+1750166816 c:\users\usuario\documents\soonata\include\commands\comandoimphist.h
+	"ICommand.h"
+	"../Historial.h"
+
+1750166816 c:\users\usuario\documents\soonata\include\commands\comandoanthist.h
+	"ICommand.h"
+	"../Historial.h"
+
+1750166817 c:\users\usuario\documents\soonata\include\commands\comandosighist.h
+	"ICommand.h"
+	"../Historial.h"
+
+1750166817 source:c:\users\usuario\documents\soonata\src\commands\comandoanthist.cpp
+	"../include/commands/ComandoAntHist.h"
+
+1750166817 source:c:\users\usuario\documents\soonata\src\commands\comandoimphist.cpp
+	"../include/commands/ComandoImpHist.h"
+
+1750166817 source:c:\users\usuario\documents\soonata\src\commands\comandonavegar.cpp
+	"../include/commands/ComandoNavegar.h"
+
+1750166817 source:c:\users\usuario\documents\soonata\src\commands\comandosighist.cpp
+	"../include/commands/ComandoSigHist.h"
 
