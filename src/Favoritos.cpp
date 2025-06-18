@@ -1,38 +1,41 @@
-#include "Favoritos.h"
+#include "../include/Favoritos.h"
 
-
-Favoritos::Favoritos(const std::string& url, const std::string& nombre, const std::string& carpeta) : url(url), nombre(nombre), carpeta(carpeta)
+Favoritos::Favoritos(const std::string &url, const std::string &nombre, const std::string &carpeta) : url(url), nombre(nombre), carpeta(carpeta)
 {
-    //ctor
+    // ctor
 }
 
-
-std::string Favoritos::getUrl() const {
+std::string Favoritos::getUrl() const
+{
     return url;
 }
 
-std::string Favoritos::getNombre() const {
+std::string Favoritos::getNombre() const
+{
     return nombre;
 }
 
-std::string Favoritos::getCarpeta() const {
+std::string Favoritos::getCarpeta() const
+{
     return carpeta;
 }
 
-
-void Favoritos::setUrl(const std::string& url) {
+void Favoritos::setUrl(const std::string &url)
+{
     this->url = url;
 }
 
-void Favoritos::setNombre(const std::string& nombre) {
+void Favoritos::setNombre(const std::string &nombre)
+{
     this->nombre = nombre;
 }
 
-void Favoritos::setCarpeta(const std::string& carpeta) {
+void Favoritos::setCarpeta(const std::string &carpeta)
+{
     this->carpeta = carpeta;
 }
 
 Favoritos::~Favoritos()
 {
-    //dtor
+    // dtor
 }
