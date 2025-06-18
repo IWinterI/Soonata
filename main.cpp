@@ -17,11 +17,28 @@
 #include "include/commands/ComandoRestFav.h"
 #include "include/commands/ComandoAsigCarp.h"
 
+#include "ExpHTML.h"
+
 int main()
 {
     // Configurar interfaz
     InterfazConsola interfaz;
+    ExpHTML html;
+    // Agregar páginas a diferentes carpetas
+    html.agregarPagina("Redes Sociales", "Facebook", "https://facebook.com");
+    html.agregarPagina("Redes Sociales", "Twitter", "https://twitter.com");
+    html.agregarPagina("Redes Sociales", "Instagram", "https://instagram.com");
 
+    html.agregarPagina("Buscadores", "Google", "https://google.com");
+    html.agregarPagina("Buscadores", "Bing", "https://bing.com");
+
+    html.agregarPagina("Noticias", "BBC", "https://bbc.com");
+    html.agregarPagina("Noticias", "CNN", "https://cnn.com");
+
+
+
+    // Generar el archivo HTML final
+    html.generarArchivoHTML("explorador.html");
     // Crear servicios
     Historial historial;
     GestionF gestionf;
@@ -40,6 +57,8 @@ int main()
 
     // Ejecutar
     interfaz.ejecutar();
+
+
 
     return 0;
 }
