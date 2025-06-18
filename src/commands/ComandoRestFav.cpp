@@ -41,6 +41,7 @@ void ComandoRestFav::ejecutar()
     std::cout << std::string(50, '=') << std::endl;
     std::cout << std::string(50, '-') << std::endl;
     std::cout << "============= Favoritos restaurados =============" << std::endl;
+
     for (auto var : eliminados)
     {
         std::cout << std::string(50, '-') << std::endl;
@@ -48,6 +49,7 @@ void ComandoRestFav::ejecutar()
         std::cout << "Url: " << var.getUrl() << std::endl;
         std::cout << "Carpeta: " << var.getCarpeta() << std::endl;
     }
+
     std::cout << std::string(50, '-') << std::endl;
     std::cout << std::string(50, '=') << std::endl;
 

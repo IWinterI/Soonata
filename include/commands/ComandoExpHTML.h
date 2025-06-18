@@ -1,17 +1,15 @@
 #pragma once
 #include "ICommand.h"
-#include "../Historial.h"
-#include "../GestionF.h"
 #include "../ExpHTML.h"
+#include "../GestionF.h"
 
-#include <limits>
-
-class ComandoElimFav : public ICommand
+class ComandoExpHTML : public ICommand
 {
-    GestionF &servicio;
+    ExpHTML &servicio;
+    GestionF &archivo;
 
 public:
-    explicit ComandoElimFav(GestionF &srv);
+    explicit ComandoExpHTML(ExpHTML &srv, GestionF &arch);
 
     void ejecutar() override;
     std::string nombre() const override;

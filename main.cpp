@@ -4,6 +4,7 @@
 // Servicios
 #include "include/Historial.h"
 #include "include/GestionF.h"
+#include "include/ExpHTML.h"
 
 // Comandos
 #include "include/commands/ComandoNavegar.h"
@@ -16,32 +17,43 @@
 #include "include/commands/ComandoSearchFav.h"
 #include "include/commands/ComandoRestFav.h"
 #include "include/commands/ComandoAsigCarp.h"
+#include "include/commands/ComandoExpHTML.h"
 
-#include "ExpHTML.h"
+void pausarConsola()
+{
+
+    std::cout << "\nPresione Enter para continuar...";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.get(); // Espera a que se presione Enter
+}
 
 int main()
 {
     // Configurar interfaz
     InterfazConsola interfaz;
-    ExpHTML html;
-    // Agregar páginas a diferentes carpetas
-    html.agregarPagina("Redes Sociales", "Facebook", "https://facebook.com");
-    html.agregarPagina("Redes Sociales", "Twitter", "https://twitter.com");
-    html.agregarPagina("Redes Sociales", "Instagram", "https://instagram.com");
 
-    html.agregarPagina("Buscadores", "Google", "https://google.com");
-    html.agregarPagina("Buscadores", "Bing", "https://bing.com");
-
-    html.agregarPagina("Noticias", "BBC", "https://bbc.com");
-    html.agregarPagina("Noticias", "CNN", "https://cnn.com");
-
-
-
-    // Generar el archivo HTML final
-    html.generarArchivoHTML("explorador.html");
     // Crear servicios
     Historial historial;
     GestionF gestionf;
+    ExpHTML html;
+
+    // Cargar lista de favoritos
+    std::vector<Favoritos> Favoritos;
+    html.leerArchivoHTML("Favoritos.html", Favoritos);
+
+    for (auto var : Favoritos)
+    {
+        std::cout << "Nombre: " << var.getNombre() << std::endl;
+        std::cout << "URL: " << var.getUrl() << std::endl;
+        std::cout << "Carpeta: " << var.getCarpeta() << std::endl;
+    }
+
+    pausarConsola();
+
+    for (auto var : Favoritos)
+    {
+        gestionf.agregarFavorito(var.getUrl(), var.getNombre(), var.getCarpeta());
+    }
 
     // Registrar comandos con sus dependencias
     interfaz.registrarComando(1, std::make_unique<ComandoNavegar>(historial));
@@ -54,11 +66,10 @@ int main()
     interfaz.registrarComando(8, std::make_unique<ComandoSearchFav>(gestionf));
     interfaz.registrarComando(9, std::make_unique<ComandoAsigCarp>(gestionf));
     interfaz.registrarComando(10, std::make_unique<ComandoRestFav>(gestionf));
+    interfaz.registrarComando(11, std::make_unique<ComandoExpHTML>(html, gestionf));
 
     // Ejecutar
     interfaz.ejecutar();
-
-
 
     return 0;
 }

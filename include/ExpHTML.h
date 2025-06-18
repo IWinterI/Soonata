@@ -1,32 +1,26 @@
 #ifndef EXPHTML_H
 #define EXPHTML_H
-#include <string>
-#include <vector>
 
-struct Pagina {
-    std::string nombre;
-    std::string url;
-};
+#include <vector>
+#include <string>
+#include "Favoritos.h"
 
 class ExpHTML
 {
-    public:
-        ExpHTML();
-        virtual ~ExpHTML();
-        void agregarPagina(const std::string& carpeta,
-                      const std::string& nombrePagina,
-                      const std::string& url);
+public:
+    ExpHTML();
+    ~ExpHTML();
 
-        void generarArchivoHTML(const std::string& nombreArchivo);
+    void generarArchivoHTML(const std::string &nombreArchivo,
+                            const std::vector<Favoritos> &favoritos);
 
-    protected:
+    bool leerArchivoHTML(const std::string &nombreArchivo,
+                         std::vector<Favoritos> &favoritos);
 
-    private:
-        std::string generarHTML();
-        std::string escapeHTML(const std::string& texto);
-
-        // Estructura: carpeta -> lista de páginas
-        std::vector<std::pair<std::string, std::vector<Pagina>>> datos;
+private:
+    std::string generarHTML(const std::vector<Favoritos> &favoritos);
+    std::string escapeHTML(const std::string &texto);
+    std::string unescapeHTML(const std::string &texto);
 };
 
 #endif // EXPHTML_H

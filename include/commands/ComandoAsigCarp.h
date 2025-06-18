@@ -2,6 +2,7 @@
 #include "ICommand.h"
 #include "../GestionF.h"
 #include "../Favoritos.h"
+#include "../ExpHTML.h"
 
 #include <limits>
 
