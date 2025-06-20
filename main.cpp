@@ -5,6 +5,7 @@
 #include "include/Historial.h"
 #include "include/GestionF.h"
 #include "include/ExpHTML.h"
+#include "include/MusicPlayer.h"
 
 // Comandos
 #include "include/commands/ComandoNavegar.h"
@@ -18,6 +19,10 @@
 #include "include/commands/ComandoRestFav.h"
 #include "include/commands/ComandoAsigCarp.h"
 #include "include/commands/ComandoExpHTML.h"
+
+// Librerias
+#include <thread>
+#include <chrono>
 
 void pausarConsola()
 {
@@ -43,15 +48,6 @@ int main()
 
     for (auto var : Favoritos)
     {
-        std::cout << "Nombre: " << var.getNombre() << std::endl;
-        std::cout << "URL: " << var.getUrl() << std::endl;
-        std::cout << "Carpeta: " << var.getCarpeta() << std::endl;
-    }
-
-    pausarConsola();
-
-    for (auto var : Favoritos)
-    {
         gestionf.agregarFavorito(var.getUrl(), var.getNombre(), var.getCarpeta());
     }
 
@@ -68,8 +64,16 @@ int main()
     interfaz.registrarComando(10, std::make_unique<ComandoRestFav>(gestionf));
     interfaz.registrarComando(11, std::make_unique<ComandoExpHTML>(html, gestionf));
 
+    // Configuracion de la musica
+    MusicPlayer::getInstance().start();
+    MusicPlayer::getInstance().setVolume(15.0f);
+
     // Ejecutar
     interfaz.ejecutar();
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+
+    MusicPlayer::getInstance().stop();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     return 0;
 }
