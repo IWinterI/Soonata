@@ -1,6 +1,6 @@
 #include "../include/commands/ComandoSigHist.h"
 
-ComandoSigHist::ComandoSigHist(Historial &srv) : servicio(srv) {}
+ComandoSigHist::ComandoSigHist(Historial &srv, Navegador &nav) : servicio(srv), navegador(nav) {}
 
 std::string ComandoSigHist::nombre() const
 {
@@ -23,6 +23,11 @@ void ComandoSigHist::ejecutar()
     std::cout << std::string(50, '-') << std::endl;
     servicio.siguiente();
     std::cout << "Url actual: " << servicio.get_actual() << std::endl;
+    if (servicio.get_navegacion())
+    {
+        navegador.abrirURLOptimo(servicio.get_actual());
+    }
+
     std::cout << std::string(50, '=') << std::endl;
     pausarConsola();
 }

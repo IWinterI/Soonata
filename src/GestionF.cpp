@@ -234,3 +234,110 @@ void GestionF::mostrarFavorito(const std::string &criterio, const std::string &c
         }
     }
 }
+
+void GestionF::mostrarFavoritosPorCarpeta() const
+{
+    if (favoritos.empty())
+    {
+        std::cout << "No hay favoritos registrados.\n";
+        return;
+    }
+
+    // Agrupar favoritos por carpeta
+    std::map<std::string, std::vector<Favoritos>> favoritosPorCarpeta;
+
+    for (const auto &fav : favoritos)
+    {
+        favoritosPorCarpeta[fav.getCarpeta()].push_back(fav);
+    }
+
+    // Ordenar las carpetas alfabéticamente
+    std::vector<std::string> carpetas;
+    for (const auto &par : favoritosPorCarpeta)
+    {
+        carpetas.push_back(par.first);
+    }
+    std::sort(carpetas.begin(), carpetas.end());
+
+    std::cout << "============= FAVORITOS POR CARPETA =============" << std::endl;
+
+    for (const auto &carpeta : carpetas)
+    {
+        std::cout << "\n--- CARPETA: " << carpeta << " ---" << std::endl;
+        std::cout << std::string(50, '-') << std::endl;
+
+        // Ordenar favoritos dentro de la carpeta por nombre
+        auto &favoritosEnCarpeta = favoritosPorCarpeta[carpeta];
+        std::sort(favoritosEnCarpeta.begin(), favoritosEnCarpeta.end(),
+                  [](const Favoritos &a, const Favoritos &b)
+                  {
+                      return a.getNombre() < b.getNombre();
+                  });
+
+        for (const auto &fav : favoritosEnCarpeta)
+        {
+            std::cout << "Nombre: " << fav.getNombre() << std::endl;
+            std::cout << "Url: " << fav.getUrl() << std::endl;
+            std::cout << std::string(50, '-') << std::endl;
+        }
+    }
+}
+
+Favoritos GestionF::seleccionarFavorito(const std::vector<Favoritos> &opciones) const
+{
+    if (opciones.empty())
+    {
+        throw std::runtime_error("No hay opciones para seleccionar");
+    }
+
+    // Si solo hay una opción, devolverla directamente
+    if (opciones.size() == 1)
+    {
+        return opciones[0];
+    }
+
+    // Mostrar encabezado de selección
+    std::cout << "\n=== Seleccione un favorito ===\n";
+
+    // Mostrar todas las opciones numeradas
+    for (size_t i = 0; i < opciones.size(); ++i)
+    {
+        const auto &fav = opciones[i];
+        std::cout << i + 1 << ". " << fav.getNombre()
+                  << " (" << fav.getUrl() << ")"
+                  << " - Carpeta: " << fav.getCarpeta() << "\n";
+    }
+    std::cout << "0. Cancelar búsqueda\n";
+
+    // Manejar entrada del usuario
+    int seleccion = -1;
+    while (true)
+    {
+        std::cout << "\nIngrese el número de la opción (0 para cancelar): ";
+
+        // Validar que la entrada sea un número
+        if (!(std::cin >> seleccion))
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Entrada inválida. Por favor ingrese un número.\n";
+            continue;
+        }
+
+        // Validar rango de selección
+        if (seleccion == 0)
+        {
+            throw std::runtime_error("Búsqueda cancelada por el usuario");
+        }
+        if (seleccion < 1 || seleccion > static_cast<int>(opciones.size()))
+        {
+            std::cout << "Opción inválida. Por favor seleccione un número entre 1 y "
+                      << opciones.size() << ".\n";
+            continue;
+        }
+
+        break;
+    }
+
+    return opciones[seleccion - 1];
+}

@@ -6,6 +6,8 @@
 #include "include/GestionF.h"
 #include "include/ExpHTML.h"
 #include "include/MusicPlayer.h"
+#include "include/ExpJSON.h"
+#include "include/Navegador.h"
 
 // Comandos
 #include "include/commands/ComandoNavegar.h"
@@ -19,6 +21,7 @@
 #include "include/commands/ComandoRestFav.h"
 #include "include/commands/ComandoAsigCarp.h"
 #include "include/commands/ComandoExpHTML.h"
+#include "include/commands/ComandoHabNav.h"
 
 // Librerias
 #include <thread>
@@ -41,10 +44,12 @@ int main()
     Historial historial;
     GestionF gestionf;
     ExpHTML html;
+    ExpJSON json;
+    Navegador navegador;
 
     // Cargar lista de favoritos
     std::vector<Favoritos> Favoritos;
-    html.leerArchivoHTML("Favoritos.html", Favoritos);
+    Favoritos = json.importarFavoritos("Favoritos.json");
 
     for (auto var : Favoritos)
     {
@@ -52,10 +57,10 @@ int main()
     }
 
     // Registrar comandos con sus dependencias
-    interfaz.registrarComando(1, std::make_unique<ComandoNavegar>(historial));
+    interfaz.registrarComando(1, std::make_unique<ComandoNavegar>(historial, navegador));
     interfaz.registrarComando(2, std::make_unique<ComandoImpHist>(historial));
-    interfaz.registrarComando(3, std::make_unique<ComandoAntHist>(historial));
-    interfaz.registrarComando(4, std::make_unique<ComandoSigHist>(historial));
+    interfaz.registrarComando(3, std::make_unique<ComandoAntHist>(historial, navegador));
+    interfaz.registrarComando(4, std::make_unique<ComandoSigHist>(historial, navegador));
     interfaz.registrarComando(5, std::make_unique<ComandoAddFav>(gestionf));
     interfaz.registrarComando(6, std::make_unique<ComandoElimFav>(gestionf));
     interfaz.registrarComando(7, std::make_unique<ComandoImpFav>(gestionf));
@@ -63,6 +68,7 @@ int main()
     interfaz.registrarComando(9, std::make_unique<ComandoAsigCarp>(gestionf));
     interfaz.registrarComando(10, std::make_unique<ComandoRestFav>(gestionf));
     interfaz.registrarComando(11, std::make_unique<ComandoExpHTML>(html, gestionf));
+    interfaz.registrarComando(12, std::make_unique<ComandoHabNav>(historial));
 
     // Configuracion de la musica
     MusicPlayer::getInstance().start();
@@ -71,6 +77,8 @@ int main()
     // Ejecutar
     interfaz.ejecutar();
     std::this_thread::sleep_for(std::chrono::seconds(1));
+
+    json.exportarFavoritos("Favoritos.json", gestionf.obtenerTodos());
 
     MusicPlayer::getInstance().stop();
     std::this_thread::sleep_for(std::chrono::milliseconds(500));

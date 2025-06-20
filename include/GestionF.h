@@ -6,6 +6,8 @@
 #include <deque>
 #include <string>
 #include <set>
+#include <map>
+#include <limits>
 
 class GestionF
 {
@@ -21,6 +23,8 @@ public:
     std::vector<Favoritos> buscarPorNombre(const std::string &nombre) const;
     std::vector<Favoritos> buscarPorURL(const std::string &url) const;
     std::vector<Favoritos> buscarPorCarpeta(const std::string &carpeta) const;
+    std::vector<Favoritos> buscarPorCriterio(const std::string &criterio) const;
+
     std::vector<Favoritos> obtenerTodos() const;
     std::deque<Favoritos> obtenerEliminados() const;
     std::vector<std::string> obtenerCarpetasExistentes() const;
@@ -31,7 +35,9 @@ public:
     bool guardarEnArchivo(const std::string &archivo) const;
 
     void mostrarFavoritos() const;
+    void mostrarFavoritosPorCarpeta() const;
     void mostrarFavorito(const std::string &criterio, const std::string &carpeta) const;
+    Favoritos seleccionarFavorito(const std::vector<Favoritos> &opciones) const;
 
 protected:
 private:

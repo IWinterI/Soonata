@@ -1,6 +1,6 @@
 #include "../include/commands/ComandoAntHist.h"
 
-ComandoAntHist::ComandoAntHist(Historial &srv) : servicio(srv) {}
+ComandoAntHist::ComandoAntHist(Historial &srv, Navegador &nav) : servicio(srv), navegador(nav) {}
 
 std::string ComandoAntHist::nombre() const
 {
@@ -24,5 +24,11 @@ void ComandoAntHist::ejecutar()
     servicio.anterior();
     std::cout << "Url actual: " << servicio.get_actual() << std::endl;
     std::cout << std::string(50, '=') << std::endl;
+
+    if (servicio.get_navegacion())
+    {
+        navegador.abrirURLOptimo(servicio.get_actual());
+    }
+
     pausarConsola();
 }

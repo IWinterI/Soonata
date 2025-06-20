@@ -3,6 +3,7 @@
 Historial::Historial()
 {
     actual = historial.end();
+    Navegacion = false;
 }
 
 Historial::~Historial()
@@ -122,4 +123,14 @@ void Historial::borrar_historial()
 {
     historial.clear();
     actual = historial.end();
+}
+
+void Historial::hab_navegacion()
+{
+    Navegacion = true;
+}
+
+bool Historial::get_navegacion()
+{
+    return Navegacion;
 }

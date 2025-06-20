@@ -1,0 +1,12 @@
+[
+  {
+    "url": "https://www.google.com",
+    "nombre": "Google",
+    "carpeta": "Navegador"
+  },
+  {
+    "url": "https://www.safari.com",
+    "nombre": "Safari",
+    "carpeta": "Navegador"
+  }
+]

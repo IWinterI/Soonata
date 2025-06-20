@@ -14,8 +14,7 @@ ExpHTML::~ExpHTML()
     // dtor
 }
 
-void ExpHTML::generarArchivoHTML(const std::string &nombreArchivo,
-                                 const std::vector<Favoritos> &favoritos)
+void ExpHTML::generarArchivoHTML(const std::string &nombreArchivo, const std::vector<Favoritos> &favoritos)
 {
     std::ofstream archivo(nombreArchivo);
     if (archivo.is_open())
@@ -133,30 +132,31 @@ std::string ExpHTML::generarHTML(const std::vector<Favoritos> &favoritos)
 
     for (const auto &[carpeta, paginas] : grupos)
     {
-        html += "<div class='folder'>";
-        html += "<div class='folder-header'>" + escapeHTML(carpeta) + "</div>";
-        html += "<div class='pages'>";
+        html += "            <div class='folder'>\n";
+        html += "                <div class='folder-header'>" + escapeHTML(carpeta) + "</div>\n";
+        html += "                <div class='pages'>\n";
 
         if (paginas.empty())
         {
-            html += "<div class='empty'>Esta carpeta está vacia</div>";
+            html += "                    <div class='empty'>Esta carpeta está vacia</div>\n";
         }
         else
         {
             for (const auto &pagina : paginas)
             {
-                html += "<div class='page-item'>";
-                html += "<a href='" + escapeHTML(pagina.getUrl()) + "' class='page-link'>" +
-                        escapeHTML(pagina.getNombre()) + "</a>";
-                html += "<span class='page-url'>" + escapeHTML(pagina.getUrl()) + "</span>";
-                html += "</div>";
+                html += "                    <div class='page-item'>\n";
+                html += "                        <a href='" + escapeHTML(pagina.getUrl()) +
+                        "' class='page-link'>" + escapeHTML(pagina.getNombre()) + "</a>\n";
+                html += "                        <span class='page-url'>" +
+                        escapeHTML(pagina.getUrl()) + "</span>\n";
+                html += "                    </div>\n";
             }
         }
 
-        html += "</div></div>";
+        html += "                </div>\n";
+        html += "            </div>\n";
     }
 
-    // JavaScript para mostrar/ocultar páginas
     html += R"(
         </div>
     </div>
@@ -182,6 +182,8 @@ std::string ExpHTML::generarHTML(const std::vector<Favoritos> &favoritos)
 std::string ExpHTML::escapeHTML(const std::string &texto)
 {
     std::string result;
+    result.reserve(texto.length());
+
     for (char c : texto)
     {
         switch (c)
@@ -204,135 +206,6 @@ std::string ExpHTML::escapeHTML(const std::string &texto)
         default:
             result += c;
             break;
-        }
-    }
-    return result;
-}
-
-bool ExpHTML::leerArchivoHTML(const std::string &nombreArchivo,
-                              std::vector<Favoritos> &favoritos)
-{
-    favoritos.clear();
-    std::ifstream archivo(nombreArchivo);
-    if (!archivo.is_open())
-        return false;
-
-    std::stringstream buffer;
-    buffer << archivo.rdbuf();
-    std::string contenido = buffer.str();
-    archivo.close();
-
-    size_t pos = 0;
-    while ((pos = contenido.find("<div class='folder'>", pos)) != std::string::npos)
-    {
-        pos += 19; // Longitud de "<div class='folder'>"
-
-        // Extraer nombre de carpeta
-        size_t headerStart = contenido.find("<div class='folder-header'>", pos);
-        if (headerStart == std::string::npos)
-            break;
-        headerStart += 27; // Longitud de "<div class='folder-header'>"
-
-        size_t headerEnd = contenido.find("</div>", headerStart);
-        if (headerEnd == std::string::npos)
-            break;
-        std::string carpeta = contenido.substr(headerStart, headerEnd - headerStart);
-        carpeta = unescapeHTML(carpeta);
-
-        // Buscar contenedor de páginas
-        size_t pagesStart = contenido.find("<div class='pages'>", headerEnd);
-        if (pagesStart == std::string::npos)
-            break;
-        pagesStart += 19; // Longitud de "<div class='pages'>"
-
-        size_t pagesEnd = contenido.find("</div>", pagesStart);
-        if (pagesEnd == std::string::npos)
-            break;
-
-        // Procesar TODOS los elementos dentro de la carpeta
-        size_t itemPos = pagesStart;
-        while ((itemPos = contenido.find("<div class='page-item'>", itemPos)) != std::string::npos)
-        {
-            if (itemPos > pagesEnd)
-                break;
-
-            itemPos += 23; // Longitud de "<div class='page-item'>"
-
-            // Extraer URL
-            size_t hrefStart = contenido.find("<a href='", itemPos);
-            if (hrefStart == std::string::npos || hrefStart > pagesEnd)
-                break;
-            hrefStart += 9; // Longitud de "<a href='"
-
-            size_t hrefEnd = contenido.find("'", hrefStart);
-            if (hrefEnd == std::string::npos || hrefEnd > pagesEnd)
-                break;
-            std::string url = contenido.substr(hrefStart, hrefEnd - hrefStart);
-            url = unescapeHTML(url);
-
-            // Extraer nombre - BUSCAMOS DIRECTAMENTE LA CLASE
-            size_t nameStart = contenido.find("class='page-link'>", hrefEnd);
-            if (nameStart == std::string::npos || nameStart > pagesEnd)
-                break;
-            nameStart += 18; // Longitud de "class='page-link'>"
-
-            size_t nameEnd = contenido.find("<", nameStart);
-            if (nameEnd == std::string::npos || nameEnd > pagesEnd)
-                break;
-            std::string nombre = contenido.substr(nameStart, nameEnd - nameStart);
-            nombre = unescapeHTML(nombre);
-
-            // Añadir favorito
-            favoritos.emplace_back(url, nombre, carpeta);
-
-            // Avanzar al siguiente elemento
-            itemPos = nameEnd + 1;
-        }
-        pos = pagesEnd;
-    }
-    return true;
-}
-
-std::string ExpHTML::unescapeHTML(const std::string &texto)
-{
-    std::string result;
-    for (size_t i = 0; i < texto.size(); ++i)
-    {
-        if (texto[i] == '&')
-        {
-            if (texto.substr(i, 5) == "&amp;")
-            {
-                result += '&';
-                i += 4;
-            }
-            else if (texto.substr(i, 4) == "&lt;")
-            {
-                result += '<';
-                i += 3;
-            }
-            else if (texto.substr(i, 4) == "&gt;")
-            {
-                result += '>';
-                i += 3;
-            }
-            else if (texto.substr(i, 6) == "&quot;")
-            {
-                result += '"';
-                i += 5;
-            }
-            else if (texto.substr(i, 5) == "&#39;")
-            {
-                result += '\'';
-                i += 4;
-            }
-            else
-            {
-                result += texto[i];
-            }
-        }
-        else
-        {
-            result += texto[i];
         }
     }
     return result;

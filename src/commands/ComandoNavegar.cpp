@@ -1,6 +1,6 @@
 #include "../include/commands/ComandoNavegar.h"
 
-ComandoNavegar::ComandoNavegar(Historial &srv) : servicio(srv) {}
+ComandoNavegar::ComandoNavegar(Historial &srv, Navegador &nav) : servicio(srv), navegador(nav) {}
 
 std::string ComandoNavegar::nombre() const
 {
@@ -32,6 +32,12 @@ void ComandoNavegar::ejecutar()
             std::cout << "Navegando a: " << url << std::endl;
             std::cout << "Se ha agregado la url al historial" << std::endl;
             std::cout << std::string(50, '=') << std::endl;
+
+            if (servicio.get_navegacion())
+            {
+                navegador.abrirURLOptimo(url);
+            }
+
             pausarConsola();
             break;
         }

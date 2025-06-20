@@ -4,31 +4,26 @@
 
 class Favoritos
 {
-    public:
-        Favoritos(const std::string& url, const std::string& nombre, const std::string& carpeta = "");
+public:
+    Favoritos(const std::string &url, const std::string &nombre, const std::string &carpeta = "");
 
+    virtual ~Favoritos();
 
-        virtual ~Favoritos();
+    // Getters
+    std::string getUrl() const;
+    std::string getNombre() const;
+    std::string getCarpeta() const;
 
-        // Getters
-        std::string getUrl() const;
-        std::string getNombre() const;
-        std::string getCarpeta() const;
+    // Setters
+    void setUrl(const std::string &url);
+    void setNombre(const std::string &nombre);
+    void setCarpeta(const std::string &carpeta);
 
-        // Setters
-        void setUrl(const std::string& url);
-        void setNombre(const std::string& nombre);
-        void setCarpeta(const std::string& carpeta);
-
-
-
-    protected:
-
-    private:
-        std::string url;
-        std::string nombre;
-        std::string carpeta;
-
+protected:
+private:
+    std::string url;
+    std::string nombre;
+    std::string carpeta;
 };
 
 #endif // FAVORITOS_H

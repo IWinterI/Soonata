@@ -23,9 +23,12 @@ public:
     bool puede_avanzar() const;
     bool puede_retroceder() const;
     static bool url_valida(const std::string &url);
+    void hab_navegacion();
+    bool get_navegacion();
 
 protected:
 private:
+    bool Navegacion;
     std::list<std::string> historial;
     std::list<std::string>::iterator actual;
 };
